@@ -1,0 +1,24 @@
+﻿version: "3.4"
+
+services:
+    api:
+        build:
+          context: .
+          dockerfile: Dockerfile
+        ports:
+          - "5505:80"
+        depends_on:
+          - db
+        volumes:
+          - ./logs
+        #environment:
+        #  - ConnectionString=Server=db;Database=aa2db;User=sa;Password=Secur3P@ssW0rd!
+
+    db:
+        image: "mcr.microsoft.com/mssql/server:2022-latest"
+        ports:
+          - "5055:1433"
+
+        environment:
+            SA_PASSWORD: "Secur3P@ssW0rd!"
+            ACCEPT_EULA: "Y"

@@ -1,0 +1,24 @@
+﻿version: "3.4"
+
+services:
+    apipre:
+        build:
+          context: .
+          dockerfile: Dockerfile
+        ports:
+          - "5506:80"
+        depends_on:
+          - predb
+        volumes:
+          - ./logs
+        #environment:
+        #  - ConnectionString=Server=predb;Database=aa2db;User=sa;Password=Secur3P@ssW0rd!
+
+    predb:
+        image: "mcr.microsoft.com/mssql/server:2022-latest"
+        ports:
+          - "5056:1433"
+
+        environment:
+            SA_PASSWORD: "Secur3P@ssW0rd!"
+            ACCEPT_EULA: "Y"
